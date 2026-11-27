@@ -1,34 +1,14 @@
-<h1>Pages#pin</h1>
-
-<br>
-<!-- 
-	<button type="button" class="btn btn-primary" id="primary">Pin Entry Happens Here</button>
- -->
-
-<script type="text/javascript">
-	const button = document.getElementById('primary');
-
-button.addEventListener('click', event => {
-  window.location.href = "summary";
-});
-</script>
-
-
-<form action="summary"> <input type="password" name="password" id="password" maxlength="6"> 
-	<br>
-	<label for="password" placeholder="Type a fake password here"></label> <br><input type="submit" value="Submit" class="btn btn-primary">
-
-<br>
-<br>
-<p>Find me in app/views/pages/pin.html.erb</p>
-
-	<!-- <script type="text/javascript">
-	const button = document.getElementById('primary');
-
-button.addEventListener('click', event => {
-  window.location.href = "summary";
-});
-</script> -->
-
- </form>
-
+<div class="row">
+  <div class="col-sm-4 offset-sm-4">
+    <h1>Enter your PIN</h1>
+    <%# POST keeps the PIN out of the URL, browser history and access logs. %>
+    <%= form_with url: summary_path, method: :post, local: true do |form| %>
+      <div class="form-group">
+        <%= form.label :pin, "PIN (4 to 6 digits)" %>
+        <%= form.password_field :pin, class: "form-control", maxlength: 6, inputmode: "numeric",
+                                      pattern: "\\d{4,6}", autocomplete: "off", required: true %>
+      </div>
+      <%= form.submit "Submit", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

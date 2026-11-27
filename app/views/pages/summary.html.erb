@@ -1,4 +1,12 @@
-<h1>Pages#summary</h1>
-<p>Find me in app/views/pages/summary.html.erb</p>
-
-<p>summary of transaction happens here</p>
+<div class="row">
+  <div class="col-sm-4 offset-sm-4">
+    <h1>Summary</h1>
+    <% if @pin_valid %>
+      <p>Payment authorized (demo).</p>
+      <%= link_to "Start over", home_path, class: "btn btn-primary" %>
+    <% else %>
+      <p>That PIN format is not valid.</p>
+      <%= link_to "Try again", pin_path, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
