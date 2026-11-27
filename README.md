@@ -1,25 +1,26 @@
-# README
+# b: scan-to-pay prototype (Rails)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The most complete Rails version of the 2020 QR "scan to pay" prototype:
 
-Things you may want to cover:
+`home` → `scanner` (camera reads a QR code) → `transactions/:id` → `pin` → `summary`
 
-* Ruby version
+## Run locally
 
-* System dependencies
+Requires Ruby 2.6.3 (see `.ruby-version`), PostgreSQL, Bundler and Yarn.
 
-* Configuration
+```bash
+bundle install
+yarn install
+bin/rails db:create
+bin/rails server     # http://localhost:3000
+bin/rails test
+```
 
-* Database creation
+## Notes
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-# b
+- **Camera access needs HTTPS.** Browsers only allow `getUserMedia` on `https://` or `localhost`; test on a phone through a tunnel such as ngrok.
+- **QR library.** Instascan is served from `public/js/instascan.min.js` (MIT licence alongside it); rawgit.com, the original source, has shut down. Instascan is unmaintained, so replace it before any real use.
+- **Scanned content** travels in `sessionStorage` and is displayed with `textContent`, so it cannot inject HTML.
+- **PIN** is posted, filtered from logs and only format-checked. Nothing is charged.
+- **Transactions** are three hard-coded demo records in `PagesController::DEMO_TRANSACTIONS`.
+- **Stack age.** Ruby 2.6 and Rails 5.2 are past end of life; upgrade before deploying anywhere public.

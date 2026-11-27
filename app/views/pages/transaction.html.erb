@@ -1,0 +1,18 @@
+<div class="row" id="confirm_body">
+  <div class="col-sm-4 offset-sm-4">
+    <h1>Confirm purchase</h1>
+    <p>Merchant: <%= @transaction[:merchant] %></p>
+    <p>Amount: <%= @transaction[:amount] %></p>
+    <p>Scanned code: <span id="scanned-code"></span></p>
+    <%= link_to "Confirm", pin_path, class: "btn btn-primary" %>
+    <%= link_to "Cancel", home_path, class: "btn btn-danger" %>
+  </div>
+</div>
+
+<script>
+  (function () {
+    // textContent treats the scanned value as plain text, so a malicious QR code cannot inject markup.
+    var code = sessionStorage.getItem("cont");
+    document.getElementById("scanned-code").textContent = code || "(nothing scanned)";
+  })();
+</script>

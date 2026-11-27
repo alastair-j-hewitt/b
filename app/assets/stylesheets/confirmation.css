@@ -1,5 +1,4 @@
-@import "bootstrap/scss/bootstrap";
-
+/* Bootstrap is loaded once, from application.css */
 
 .btn-primary {
   display: flex;
